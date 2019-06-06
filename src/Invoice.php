@@ -6,6 +6,7 @@ use Dompdf\Dompdf;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\View;
 use Symfony\Component\HttpFoundation\Response;
+use Webpatser\Uuid\Uuid;
 
 class Invoice extends Model
 {
@@ -64,6 +65,7 @@ class Invoice extends Model
     {
         $this->total = $this->lines()->sum('amount');
         $this->tax = $this->lines()->sum('tax');
+        $this->discount = $this->lines()->sum('discount');
         $this->save();
         return $this;
     }
@@ -145,9 +147,30 @@ class Invoice extends Model
         parent::boot();
 
         static::creating(function ($model) {
+            if (!$model->getKey())
+                $model->{$model->getKeyName()} = Uuid::generate(4)->string;
             $model->currency = config('invoicable.default_currency', 'EUR');
             $model->status = config('invoicable.default_status', 'concept');
             $model->reference = InvoiceReferenceGenerator::generate();
         });
+    }
+    /**
+     * Do not increment primary key.
+     *
+     * @return bool
+     */
+    public function getIncrementing()
+    {
+        return false;
+    }
+
+    /**
+     * Return primary key type.
+     *
+     * @return string
+     */
+    public function getKeyType()
+    {
+        return 'string';
     }
 }

@@ -14,8 +14,8 @@ class CreateInvoicesTables extends Migration
     public function up()
     {
         Schema::create('invoices', function (Blueprint $table) {
-            $table->increments('id');
-            $table->morphs('invoicable');
+            $table->uuid('id')->primary();
+            $table->integer('dicount')->default(0)->description('in cents');
             $table->integer('tax')->default(0)->description('in cents');
             $table->integer('total')->default(0)->description('in cents');
             $table->char('currency', 3);
@@ -30,10 +30,13 @@ class CreateInvoicesTables extends Migration
 
         Schema::create('invoice_lines', function (Blueprint $table) {
             $table->increments('id');
+            $table->morphs('invoicable');
             $table->integer('amount')->default(0)->description('in cents, including tax');
+            $table->integer('discount')->default(0)->description('in cents');
+            $table->float('discount_percentage')->default(0);
             $table->integer('tax')->default(0)->description('in cents');
             $table->float('tax_percentage')->default(0);
-            $table->integer('invoice_id')->unsigned();
+            $table->uuid('id')->index();
             $table->foreign('invoice_id')->references('id')->on('invoices');
             $table->char('description', 255);
             $table->timestamps();

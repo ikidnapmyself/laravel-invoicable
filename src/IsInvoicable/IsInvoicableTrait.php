@@ -2,7 +2,7 @@
 
 namespace SanderVanHooft\Invoicable\IsInvoicable;
 
-use SanderVanHooft\Invoicable\Invoice;
+use SanderVanHooft\Invoicable\InvoiceLine;
 
 trait IsInvoicableTrait
 {
@@ -13,6 +13,6 @@ trait IsInvoicableTrait
      */
     public function invoices()
     {
-        return $this->morphMany(Invoice::class, 'invoicable');
+        return $this->morphMany(InvoiceLine::class, 'invoicable')->with('invoice');
     }
 }
