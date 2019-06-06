@@ -37,12 +37,12 @@
     },
     "autoload": {
         "psr-4": {
-            "SanderVanHooft\\Invoicable\\": "src"
+            "IKidnapMyself\\Invoicable\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "SanderVanHooft\\Invoicable\\": "tests"
+            "IKidnapMyself\\Invoicable\\": "tests"
         }
     },
     "scripts": {
@@ -56,7 +56,7 @@
         },
         "laravel": {
             "providers": [
-                "SanderVanHooft\\Invoicable\\InvoicableServiceProvider"
+                "IKidnapMyself\\Invoicable\\InvoicableServiceProvider"
             ]
         }
     },
