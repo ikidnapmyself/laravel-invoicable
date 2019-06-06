@@ -1,8 +1,8 @@
 <?php
 
-namespace SanderVanHooft\Invoicable\IsInvoicable;
+namespace IKidnapMyself\Invoicable\IsInvoicable;
 
-use SanderVanHooft\Invoicable\InvoiceLine;
+use IKidnapMyself\Invoicable\InvoiceLine;
 
 trait IsInvoicableTrait
 {

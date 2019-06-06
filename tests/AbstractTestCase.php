@@ -1,9 +1,9 @@
 <?php
 
-namespace SanderVanHooft\Invoicable;
+namespace IKidnapMyself\Invoicable;
 
 use GrahamCampbell\TestBench\AbstractPackageTestCase;
-use SanderVanHooft\Invoicable\InvoicableServiceProvider;
+use IKidnapMyself\Invoicable\InvoicableServiceProvider;
 
 class AbstractTestCase extends AbstractPackageTestCase
 {
@@ -41,7 +41,7 @@ class AbstractTestCase extends AbstractPackageTestCase
     protected function withPackageMigrations()
     {
         include_once __DIR__.'/CreateTestModelsTable.php';
-        (new \SanderVanHooft\Invoicable\CreateTestModelsTable())->up();
+        (new \IKidnapMyself\Invoicable\CreateTestModelsTable())->up();
         include_once __DIR__.'/../database/migrations/2017_06_17_163005_create_invoices_tables.php';
         (new \CreateInvoicesTables())->up();
     }

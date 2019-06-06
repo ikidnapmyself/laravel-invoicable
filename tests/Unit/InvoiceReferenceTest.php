@@ -1,13 +1,13 @@
 <?php
 
-namespace SanderVanHooft\Invoicable\Unit;
+namespace IKidnapMyself\Invoicable\Unit;
 
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
-use SanderVanHooft\Invoicable\AbstractTestCase;
-use SanderVanHooft\Invoicable\InvoiceReferenceGenerator;
+use IKidnapMyself\Invoicable\AbstractTestCase;
+use IKidnapMyself\Invoicable\InvoiceReferenceGenerator;
 
 class InvoiceReferenceTest extends AbstractTestCase
 {

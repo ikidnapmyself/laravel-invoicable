@@ -1,6 +1,6 @@
 <?php
 
-namespace SanderVanHooft\Invoicable;
+namespace IKidnapMyself\Invoicable;
 
 use Illuminate\Support\ServiceProvider;
 

@@ -1,9 +1,9 @@
 <?php
 
-namespace SanderVanHooft\Invoicable;
+namespace IKidnapMyself\Invoicable;
 
 use Illuminate\Database\Eloquent\Model;
-use SanderVanHooft\Invoicable\Invoice;
+use IKidnapMyself\Invoicable\Invoice;
 
 class InvoiceLine extends Model
 {

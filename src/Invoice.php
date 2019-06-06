@@ -1,6 +1,6 @@
 <?php
 
-namespace SanderVanHooft\Invoicable;
+namespace IKidnapMyself\Invoicable;
 
 use Dompdf\Dompdf;
 use Illuminate\Database\Eloquent\Model;

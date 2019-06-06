@@ -1,24 +1,23 @@
 {
-    "name": "sander-van-hooft/laravel-invoicable",
+    "name": "ikidnapmyself/laravel-invoicable",
     "type": "library",
-    "description": "Easy invoice generation using Laravel Eloquent",
+    "description": "Easy invoice generation using Laravel Eloquent, originally sander-van-hooft/laravel-invoicable",
     "keywords": [
         "Eloquent",
         "invoicable",
         "invoice",
         "Laravel",
         "laravel-invoicable",
-        "payments",
-        "sandervanhooft"
+        "payments"
     ],
-    "homepage": "https://github.com/SanderVanHooft/laravel-invoicable",
+    "homepage": "https://github.com/ikidnapmyself/laravel-invoicable",
     "license": "MIT",
     "authors": [
         {
-            "name": "Sander van Hooft",
-            "email": "info@sandervanhooft.com",
-            "homepage": "http://www.sandervanhooft.com",
-            "role": "Developer"
+            "name": "Burak",
+            "email": "burak@myself.com",
+            "homepage": "http://ikidnapmyself.com",
+            "role": "Earthling"
         }
     ],
     "require": {

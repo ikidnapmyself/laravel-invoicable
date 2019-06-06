@@ -1,11 +1,11 @@
 <?php
 
-namespace SanderVanHooft\Invoicable\Feature;
+namespace IKidnapMyself\Invoicable\Feature;
 
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use SanderVanHooft\Invoicable\AbstractTestCase;
-use SanderVanHooft\Invoicable\Invoice;
-use SanderVanHooft\Invoicable\TestModel;
+use IKidnapMyself\Invoicable\AbstractTestCase;
+use IKidnapMyself\Invoicable\Invoice;
+use IKidnapMyself\Invoicable\TestModel;
 
 class InvoiceTest extends AbstractTestCase
 {

@@ -1,9 +1,9 @@
 <?php
 
-namespace SanderVanHooft\Invoicable;
+namespace IKidnapMyself\Invoicable;
 
 use Illuminate\Database\Eloquent\Model;
-use SanderVanHooft\Invoicable\IsInvoicable\IsInvoicableTrait;
+use IKidnapMyself\Invoicable\IsInvoicable\IsInvoicableTrait;
 
 class TestModel extends Model
 {
