@@ -1,9 +1,8 @@
 # laravel-invoicable
 
-[![Latest Version on Packagist][ico-version]][link-packagist]
-[![Software License][ico-license]](LICENSE.md)
-[![Build Status][ico-travis]][link-travis]
-[![Total Downloads][ico-downloads]][link-downloads]
+**Important!** This repository is a fork of `sandervanhooft/laravel-invoicable` and will be developed for personal usage. Any contribution, more than welcome.
+
+---
 
 Easy invoice creation for Laravel 5.4 and up. Unlike Laravel Cashier, this package is payment gateway agnostic.
 
@@ -24,23 +23,13 @@ vendor/
 Via Composer
 
 ``` bash
-$ composer require sander-van-hooft/laravel-invoicable
-```
-
-Next, you must install the service provider if you work with Laravel 5.4:
-
-``` php
-// config/app.php
-'providers' => [
-    ...
-    SanderVanHooft\Invoicable\InvoicableServiceProvider::class,
-];
+$ composer require ikidnapmyself/laravel-invoicable
 ```
 
 You can publish the migration with:
 
 ``` bash
-$ php artisan vendor:publish --provider="SanderVanHooft\Invoicable\InvoicableServiceProvider" --tag="migrations"
+$ php artisan vendor:publish --provider="IKidnapMyself\Invoicable\InvoicableServiceProvider" --tag="migrations"
 ```
 
 After the migration has been published you can create the invoices and invoice_lines tables by running the migrations:
@@ -52,7 +41,7 @@ $ php artisan migrate
 Optionally, you can also publish the `invoicable.php` config file with:
 
 ``` bash
-$ php artisan vendor:publish --provider="SanderVanHooft\Invoicable\InvoicableServiceProvider" --tag="config"
+$ php artisan vendor:publish --provider="IKidnapMyself\Invoicable\InvoicableServiceProvider" --tag="config"
 ```
 
 This is what the default config file looks like:
@@ -69,7 +58,7 @@ return [
 If you'd like to override the design of the invoice blade view and pdf, publish the view:
 
 ``` bash
-$ php artisan vendor:publish --provider="SanderVanHooft\Invoicable\InvoicableServiceProvider" --tag="views"
+$ php artisan vendor:publish --provider="IKidnapMyself\Invoicable\InvoicableServiceProvider" --tag="views"
 ```
 
 You can now edit `receipt.blade.php` in `<project_root>/resources/views/invoicable/receipt.blade.php` to match your style.
@@ -83,7 +72,7 @@ Add the invoicable trait to the Eloquent model which needs to be invoiced (typic
 
 ``` php
 use Illuminate\Database\Eloquent\Model;
-use SanderVanHooft\Invoicable\IsInvoicable\IsInvoicableTrait;
+use IKidnapMyself\Invoicable\IsInvoicable\IsInvoicableTrait;
 
 class Order extends Model
 {
