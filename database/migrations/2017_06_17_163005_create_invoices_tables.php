@@ -15,10 +15,11 @@ class CreateInvoicesTables extends Migration
     {
         Schema::create('invoices', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->bigInteger('price')->default(0)->description('in cents, including tax');
             $table->integer('discount')->default(0)->description('in cents');
             $table->integer('tax')->default(0)->description('in cents');
             $table->integer('total')->default(0)->description('in cents');
-            $table->char('currency', 3);
+            $table->char('currency', 5);
             $table->char('reference', 17);
             $table->char('status', 16)->nullable();
             $table->text('receiver_info')->nullable();
@@ -26,19 +27,20 @@ class CreateInvoicesTables extends Migration
             $table->text('payment_info')->nullable();
             $table->text('note')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('invoice_lines', function (Blueprint $table) {
             $table->increments('id');
             $table->uuid('invoice_id')->index();
-            $table->integer('amount')->default(0)->description('in cents, including tax');
+            $table->bigInteger('price')->default(0)->description('in cents, including tax');
             $table->integer('discount')->default(0)->description('in cents');
-            $table->float('discount_percentage')->default(0);
             $table->integer('tax')->default(0)->description('in cents');
-            $table->float('tax_percentage')->default(0);
-            $table->foreign('invoice_id')->references('id')->on('invoices');
             $table->char('description', 255);
             $table->timestamps();
+            $table->softDeletes();
+
+            $table->foreign('invoice_id')->references('id')->on('invoices');
         });
     }
 

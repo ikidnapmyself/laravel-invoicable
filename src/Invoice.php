@@ -4,12 +4,15 @@ namespace IKidnapMyself\Invoicable;
 
 use Dompdf\Dompdf;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\View;
 use Symfony\Component\HttpFoundation\Response;
 use Webpatser\Uuid\Uuid;
 
 class Invoice extends Model
 {
+    use SoftDeletes;
+
     protected $guarded = [];
 
     /**
