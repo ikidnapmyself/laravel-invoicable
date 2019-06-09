@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'default_currency' => 'EUR',
+    'default_currency' => env('BASE_CURRENCY', 'TRY'),
     'default_status' => 'concept',
-    'locale' => 'nl_NL',
+    'locale' => env('APP_LOCALE', 'tr'),
 ];
