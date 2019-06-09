@@ -15,7 +15,7 @@ class CreateInvoicesTables extends Migration
     {
         Schema::create('invoices', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->integer('dicount')->default(0)->description('in cents');
+            $table->integer('discount')->default(0)->description('in cents');
             $table->integer('tax')->default(0)->description('in cents');
             $table->integer('total')->default(0)->description('in cents');
             $table->char('currency', 3);
