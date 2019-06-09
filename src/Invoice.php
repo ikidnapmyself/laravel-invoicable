@@ -30,14 +30,13 @@ class Invoice extends Model
      * @param Float $taxPercentage The tax percentage (i.e. 0.21). Defaults to 0
      * @return Illuminate\Database\Eloquent\Model  This instance after recalculation
      */
-    public function addAmountExclTax($amount, $description, $taxPercentage = 0)
+    public function addAmountExclTax($amount, $description, $taxPercentage = 0.0)
     {
         $tax = $amount * $taxPercentage;
         $this->lines()->create([
             'amount' => $amount + $tax,
             'description' => $description,
             'tax' => $tax,
-            'tax_percentage' => $taxPercentage,
         ]);
         return $this->recalculate();
     }
@@ -49,13 +48,12 @@ class Invoice extends Model
      * @param Float $taxPercentage The tax percentage (i.e. 0.21). Defaults to 0
      * @return Illuminate\Database\Eloquent\Model  This instance after recalculation
      */
-    public function addAmountInclTax($amount, $description, $taxPercentage = 0)
+    public function addAmountInclTax($amount, $description, $taxPercentage = 0.0)
     {
         $this->lines()->create([
             'amount' => $amount,
             'description' => $description,
             'tax' => $amount - $amount / (1 + $taxPercentage),
-            'tax_percentage' => $taxPercentage,
         ]);
         return $this->recalculate();
     }
@@ -66,7 +64,7 @@ class Invoice extends Model
      */
     public function recalculate()
     {
-        $this->total = $this->lines()->sum('amount');
+        $this->total = $this->lines()->sum('price');
         $this->tax = $this->lines()->sum('tax');
         $this->discount = $this->lines()->sum('discount');
         $this->save();
