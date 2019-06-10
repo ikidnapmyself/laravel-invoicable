@@ -92,8 +92,8 @@ $invoice = $order->invoices()->create([]);
 //      100 (€1,00) excl tax
 //  Description: 'Some description'
 //  Tax percentage: 0.21 (21%)
-$invoice = $invoice->addAmountInclTax(121, 'Some description', 0.21);
-$invoice = $invoice->addAmountExclTax(100, 'Some description', 0.21);
+$invoice = $invoice->addLinetInclTax(121, 'Some description', 0.21);
+$invoice = $invoice->addLinetExclTax(100, 'Some description', 0.21);
 
 // Invoice totals are now updated
 echo $invoice->total; // 242
@@ -117,10 +117,10 @@ $invoice->pdf(); // or just grab the pdf (raw bytes)
 
 // Handling discounts
 // By adding a line with a negative amount.
-$invoice = $invoice->addAmountInclTax(-121, 'A nice discount', 0.21);
+$invoice = $invoice->addLinetInclTax(-121, 'A nice discount', 0.21);
 
 // Or by applying the discount and discribing the discount manually
-$invoice = $invoice->addAmountInclTax(121 * (1 - 0.30), 'Product XYZ incl 30% discount', 0.21);
+$invoice = $invoice->addLinetInclTax(121 * (1 - 0.30), 'Product XYZ incl 30% discount', 0.21);
 
 // Convenience methods
 Invoice::findByReference($reference);

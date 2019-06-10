@@ -16,6 +16,43 @@ class Invoice extends Model
     protected $guarded = [];
 
     /**
+     * Boot class with UUID.
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            if (!$model->getKey())
+                $model->{$model->getKeyName()} = Uuid::generate(4)->string;
+
+            $model->currency  = config('invoicable.default_currency', 'USD');
+            $model->status    = config('invoicable.default_status', 'concept');
+            $model->reference = InvoiceReferenceGenerator::generate();
+        });
+    }
+    /**
+     * Do not increment primary key, it's UUID.
+     *
+     * @return bool
+     */
+    public function getIncrementing()
+    {
+        return false;
+    }
+
+    /**
+     * Return primary key type for UUID.
+     *
+     * @return string
+     */
+    public function getKeyType()
+    {
+        return 'string';
+    }
+
+
+    /**
      * Get the invoice lines for this invoice
      */
     public function lines()
@@ -24,38 +61,62 @@ class Invoice extends Model
     }
 
     /**
-     * Use this if the amount does not yet include tax.
-     * @param Int $amount The amount in cents, excluding taxes
-     * @param String $description The description
-     * @param Float $taxPercentage The tax percentage (i.e. 0.21). Defaults to 0
-     * @return Illuminate\Database\Eloquent\Model  This instance after recalculation
+     * Create line.
+     *
+     * @param Model $model
+     * @param $price
+     * @param $description
+     * @param float $tax
+     * @param array $options
+     * @return Illuminate\Database\Eloquent\Model
      */
-    public function addAmountExclTax($amount, $description, $taxPercentage = 0.0)
+    public function addLine(Model $model, int $price, ?string $description = null, $tax = 0.0, array $options = [])
     {
-        $tax = $amount * $taxPercentage;
         $this->lines()->create([
-            'amount' => $amount + $tax,
-            'description' => $description,
-            'tax' => $tax,
+            'invoicable_type'  => get_class($model),
+            'invoicable_id'    => $model->id,
+            'name'             => $description,
+            'price'            => $price + $tax,
+            'discount'         => array_get($options, 'discount', false),
+            'tax'              => $tax,
+            'is_free'          => array_get($options, 'is_free', false),
+            'is_complimentary' => array_get($options, 'is_complimentary', false),
         ]);
         return $this->recalculate();
     }
 
     /**
-     * Use this if the amount already includes tax.
-     * @param Int $amount The amount in cents, including taxes
-     * @param String $description The description
-     * @param Float $taxPercentage The tax percentage (i.e. 0.21). Defaults to 0
-     * @return Illuminate\Database\Eloquent\Model  This instance after recalculation
+     * Use this if the price does not yet include tax.
+     *
+     * @param Model $model
+     * @param int $price
+     * @param string|null $description
+     * @param float $taxPercentage
+     * @param array $options
+     * @return Illuminate\Database\Eloquent\Model
      */
-    public function addAmountInclTax($amount, $description, $taxPercentage = 0.0)
+    public function addLineExclTax(Model $model, int $price, ?string $description = null, $taxPercentage = 0.0, array $options = [])
     {
-        $this->lines()->create([
-            'amount' => $amount,
-            'description' => $description,
-            'tax' => $amount - $amount / (1 + $taxPercentage),
-        ]);
-        return $this->recalculate();
+        $tax = $price * $taxPercentage;
+
+        return $this->addLine($model, $price, $description, $tax, $options);
+    }
+
+    /**
+     * Use this if the price already includes tax.
+     *
+     * @param Model $model
+     * @param int $price
+     * @param string|null $description
+     * @param float $taxPercentage
+     * @param array $options
+     * @return Illuminate\Database\Eloquent\Model
+     */
+    public function addLineInclTax(Model $model, int $price, ?string $description = null, $taxPercentage = 0.0, array $options = [])
+    {
+        $tax = $price - $price / (1 + $taxPercentage);
+
+        return $this->addLine($model, $price, $description, $tax, $options);
     }
 
     /**
@@ -64,10 +125,11 @@ class Invoice extends Model
      */
     public function recalculate()
     {
-        $this->total = $this->lines()->sum('price');
-        $this->tax = $this->lines()->sum('tax');
+        $this->total    = $this->lines()->sum('price');
+        $this->tax      = $this->lines()->sum('tax');
         $this->discount = $this->lines()->sum('discount');
         $this->save();
+
         return $this;
     }
 
@@ -141,37 +203,5 @@ class Invoice extends Model
     public function invoicable()
     {
         return $this->morphTo();
-    }
-
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::creating(function ($model) {
-            if (!$model->getKey())
-                $model->{$model->getKeyName()} = Uuid::generate(4)->string;
-            $model->currency = config('invoicable.default_currency', 'EUR');
-            $model->status = config('invoicable.default_status', 'concept');
-            $model->reference = InvoiceReferenceGenerator::generate();
-        });
-    }
-    /**
-     * Do not increment primary key.
-     *
-     * @return bool
-     */
-    public function getIncrementing()
-    {
-        return false;
-    }
-
-    /**
-     * Return primary key type.
-     *
-     * @return string
-     */
-    public function getKeyType()
-    {
-        return 'string';
     }
 }
