@@ -77,7 +77,7 @@ class Invoice extends Model
             'invoicable_id'    => $model->id,
             'name'             => $description,
             'price'            => $price + $tax,
-            'discount'         => array_get($options, 'discount', false),
+            'discount'         => array_get($options, 'discount', 0),
             'tax'              => $tax,
             'is_free'          => array_get($options, 'is_free', false),
             'is_complimentary' => array_get($options, 'is_complimentary', false),
