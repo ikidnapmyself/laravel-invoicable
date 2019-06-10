@@ -64,13 +64,13 @@ class Invoice extends Model
      * Create line.
      *
      * @param Model $model
-     * @param $price
-     * @param $description
+     * @param int $price
+     * @param string $description
      * @param float $tax
      * @param array $options
      * @return Illuminate\Database\Eloquent\Model
      */
-    public function addLine(Model $model, int $price, ?string $description = null, $tax = 0.0, array $options = [])
+    public function addLine(Model $model, int $price, string $description, $tax = 0.0, array $options = [])
     {
         $this->lines()->create([
             'invoicable_type'  => get_class($model),
@@ -90,12 +90,12 @@ class Invoice extends Model
      *
      * @param Model $model
      * @param int $price
-     * @param string|null $description
+     * @param string $description
      * @param float $taxPercentage
      * @param array $options
      * @return Illuminate\Database\Eloquent\Model
      */
-    public function addLineExclTax(Model $model, int $price, ?string $description = null, $taxPercentage = 0.0, array $options = [])
+    public function addLineExclTax(Model $model, int $price, string $description, $taxPercentage = 0.0, array $options = [])
     {
         $tax = $price * $taxPercentage;
 
@@ -107,12 +107,12 @@ class Invoice extends Model
      *
      * @param Model $model
      * @param int $price
-     * @param string|null $description
+     * @param string $description
      * @param float $taxPercentage
      * @param array $options
      * @return Illuminate\Database\Eloquent\Model
      */
-    public function addLineInclTax(Model $model, int $price, ?string $description = null, $taxPercentage = 0.0, array $options = [])
+    public function addLineInclTax(Model $model, int $price, string $description, $taxPercentage = 0.0, array $options = [])
     {
         $tax = $price - $price / (1 + $taxPercentage);
 
