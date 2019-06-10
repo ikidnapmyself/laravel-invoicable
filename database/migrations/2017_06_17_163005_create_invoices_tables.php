@@ -33,16 +33,19 @@ class CreateInvoicesTables extends Migration
         Schema::create('invoice_lines', function (Blueprint $table) {
             $table->increments('id');
             $table->uuid('invoice_id')->index();
-            $table->morphs('invoicable');
+            $table->uuid('invoicable_id');
+            $table->string('invoicable_type');
+            $table->char('name', 255);
             $table->bigInteger('price')->default(0)->description('in cents, including tax');
             $table->bigInteger('discount')->default(0)->description('in cents');
             $table->bigInteger('tax')->default(0)->description('in cents');
-            $table->char('description', 255);
+            $table->bigInteger('quantity')->default(1);
             $table->boolean('is_free', false);
             $table->boolean('is_complimentary', false);
             $table->timestamps();
             $table->softDeletes();
 
+            $table->index(['invoicable_id', 'invoicable_type']);
             $table->foreign('invoice_id')->references('id')->on('invoices');
         });
     }
