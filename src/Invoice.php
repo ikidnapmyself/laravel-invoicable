@@ -76,7 +76,7 @@ class Invoice extends Model
             'invoicable_type'  => get_class($model),
             'invoicable_id'    => $model->id,
             'name'             => $description,
-            'price'            => $price + $tax,
+            'price'            => $price,
             'discount'         => array_get($options, 'discount', 0),
             'tax'              => $tax,
             'is_free'          => array_get($options, 'is_free', false),
@@ -100,7 +100,7 @@ class Invoice extends Model
     {
         $tax = $price * $taxPercentage;
 
-        return $this->addLine($model, $price, $description, $tax, $options);
+        return $this->addLine($model, $price + $tax, $description, $tax, $options);
     }
 
     /**
