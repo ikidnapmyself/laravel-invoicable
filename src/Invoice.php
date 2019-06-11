@@ -125,7 +125,7 @@ class Invoice extends Model
      */
     public function recalculate()
     {
-        $this->total    = $this->lines()->sum('price');
+        $this->price    = $this->lines()->sum('price');
         $this->tax      = $this->lines()->sum('tax');
         $this->discount = $this->lines()->sum('discount');
         $this->save();
