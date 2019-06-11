@@ -26,8 +26,8 @@ class Invoice extends Model
             if (!$model->getKey())
                 $model->{$model->getKeyName()} = Uuid::generate(4)->string;
 
-            $model->currency  = config('invoicable.default_currency', 'USD');
-            $model->status    = config('invoicable.default_status', 'concept');
+            $model->currency  = config('invoicable.default_currency');
+            $model->status    = config('invoicable.default_status');
             $model->reference = InvoiceReferenceGenerator::generate();
         });
     }
