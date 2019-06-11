@@ -9,7 +9,7 @@ class InvoiceReferenceGenerator
     public static function generate()
     {
         $date = Carbon::now();
-        return $date->format('Y-m-d') . '-' . self::generateRandomCode();
+        return $date->format('Ymd') . '-' . strtoupper(self::generateRandomCode());
     }
 
     protected static function generateRandomCode()
