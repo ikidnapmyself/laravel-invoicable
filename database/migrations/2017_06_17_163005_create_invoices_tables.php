@@ -18,7 +18,6 @@ class CreateInvoicesTables extends Migration
             $table->bigInteger('price')->default(0)->description('in cents, including tax');
             $table->integer('discount')->default(0)->description('in cents');
             $table->integer('tax')->default(0)->description('in cents');
-            $table->integer('total')->default(0)->description('in cents');
             $table->char('currency', 5);
             $table->char('reference', 20);
             $table->char('status', 16)->nullable();
