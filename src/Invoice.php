@@ -82,7 +82,8 @@ class Invoice extends Model
             'is_free'          => array_get($options, 'is_free', false),
             'is_complimentary' => array_get($options, 'is_complimentary', false),
         ]);
-        return $this->recalculate();
+
+        return $this;
     }
 
     /**
