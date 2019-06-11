@@ -66,11 +66,11 @@ class Invoice extends Model
      * @param Model $model
      * @param int $price
      * @param string $description
-     * @param float $tax
+     * @param int $tax
      * @param array $options
      * @return Illuminate\Database\Eloquent\Model
      */
-    public function addLine(Model $model, int $price, string $description, $tax = 0.0, array $options = [])
+    public function addLine(Model $model, int $price, string $description, int $tax, array $options = [])
     {
         $this->lines()->create([
             'invoicable_type'  => get_class($model),
