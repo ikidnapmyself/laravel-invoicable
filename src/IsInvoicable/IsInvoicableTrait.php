@@ -7,12 +7,22 @@ use IKidnapMyself\Invoicable\InvoiceLine;
 trait IsInvoicableTrait
 {
     /**
-     * Set the polymorphic relation.
+     * Invoice line.
      *
      * @return mixed
      */
-    public function invoices()
+    public function line()
     {
-        return $this->morphMany(InvoiceLine::class, 'invoicable')->with('invoice');
+        return $this->morphMany(InvoiceLine::class, 'invoicable');
+    }
+
+    /**
+     * Invoice.
+     *
+     * @return mixed
+     */
+    public function invoice()
+    {
+        return $this->line()->with('invoice');
     }
 }
