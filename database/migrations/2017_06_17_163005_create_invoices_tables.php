@@ -15,6 +15,8 @@ class CreateInvoicesTables extends Migration
     {
         Schema::create('invoices', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->uuid('receivable_id');
+            $table->string('receivable_type');
             $table->bigInteger('price')->default(0)->description('in cents, including tax');
             $table->integer('discount')->default(0)->description('in cents');
             $table->integer('tax')->default(0)->description('in cents');
@@ -27,6 +29,8 @@ class CreateInvoicesTables extends Migration
             $table->text('note')->nullable();
             $table->timestamps();
             $table->softDeletes();
+
+            $table->index(['receivable_id', 'receivable_type']);
         });
 
         Schema::create('invoice_lines', function (Blueprint $table) {

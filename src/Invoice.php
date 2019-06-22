@@ -13,7 +13,15 @@ class Invoice extends Model
 {
     use SoftDeletes;
 
-    protected $guarded = [];
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'receivable_id', 'receivable_type',  'price', 'discount', 'tax', 'currency',
+        'reference', 'status', 'receiver_info', 'sender_info', 'payment_info', 'note'
+    ];
 
     /**
      * Boot class with UUID.
@@ -51,6 +59,15 @@ class Invoice extends Model
         return 'string';
     }
 
+    /**
+     * Receivable model.
+     *
+     * @return mixed
+     */
+    public function receivable()
+    {
+        return $this->morphTo();
+    }
 
     /**
      * Get the invoice lines for this invoice

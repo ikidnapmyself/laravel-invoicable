@@ -20,11 +20,11 @@ class InvoiceLine extends Model
     }
 
     /**
-     * Invoiced item.
+     * Invoicable model.
      *
      * @return mixed
      */
-    public function item()
+    public function invoicable()
     {
         return $this->morphTo();
     }
