@@ -13,7 +13,7 @@ trait IsInvoicableTrait
      */
     public function line()
     {
-        return $this->morphMany(InvoiceLine::class, 'invoicable');
+        return $this->morphOne(InvoiceLine::class, 'invoicable');
     }
 
     /**
