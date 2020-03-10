@@ -30,6 +30,11 @@ class Invoice extends Model
     {
         parent::boot();
 
+        static::addGlobalScope(function ($query) {
+            $query
+                ->where('is_bill', false);
+        });
+
         static::creating(function ($model) {
             if (!$model->getKey())
                 $model->{$model->getKeyName()} = Uuid::generate(4)->string;
