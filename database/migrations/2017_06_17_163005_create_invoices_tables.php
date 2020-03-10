@@ -43,8 +43,8 @@ class CreateInvoicesTables extends Migration
             $table->bigInteger('discount')->default(0)->description('in cents');
             $table->bigInteger('tax')->default(0)->description('in cents');
             $table->bigInteger('quantity')->default(1);
-            $table->boolean('is_free', false);
-            $table->boolean('is_complimentary', false);
+            $table->boolean('is_free')->default(false);;
+            $table->boolean('is_complimentary')->default(false);
             $table->timestamps();
             $table->softDeletes();
 
