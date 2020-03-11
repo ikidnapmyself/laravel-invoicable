@@ -31,12 +31,15 @@ class InvoiceReferenceTest extends AbstractTestCase
     {
         // assert invoice reference matches format YYYY-MM-DD-XXXXXX (X = alphanumeric character)
         $list = explode('-', $this->reference);
+        $year = substr($list[0], 0, 4);
+        $month = substr($list[0], 4, 2);
+        $day = substr($list[0], 6, 2);
 
-        $this->assertEquals($list[0], $this->date->year);
-        $this->assertEquals($list[1], $this->date->month);
-        $this->assertEquals($list[2], $this->date->day);
-        $this->assertEquals(6, strlen($list[3]));
-        $this->assertRegExp('/^[A-Z0-9]+$/', $list[3]);
+        $this->assertEquals($year, $this->date->year);
+        $this->assertEquals($month, $this->date->month);
+        $this->assertEquals($day, $this->date->day);
+        $this->assertEquals(6, strlen($list[1]));
+        $this->assertRegExp('/^[A-Z0-9]+$/', $list[1]);
     }
 
     /** @test */
