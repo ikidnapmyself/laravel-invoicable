@@ -24,6 +24,17 @@ class Invoice extends Model
     ];
 
     /**
+     * Invoice constructor.
+     * @param array $attributes
+     */
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+
+        $this->setTable(config('invoicable.table_names.invoices'));
+    }
+
+    /**
      * Boot class with UUID.
      */
     protected static function boot()

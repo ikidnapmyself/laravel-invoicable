@@ -8,14 +8,6 @@ use IKidnapMyself\Invoicable\InvoiceLine;
 
 class Bill extends BaseInvoice
 {
-
-    /**
-     * The table associated with the model.
-     *
-     * @var string
-     */
-    protected $table = 'invoices';
-
     /**
      * The attributes that are mass assignable.
      *
@@ -25,6 +17,17 @@ class Bill extends BaseInvoice
         'invoicable_id', 'invoicable_type', 'is_bill', 'price', 'discount', 'tax', 'currency',
         'reference', 'status', 'receiver_info', 'sender_info', 'payment_info', 'note'
     ];
+
+    /**
+     * Bill constructor.
+     * @param array $attributes
+     */
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+
+        $this->setTable(config('invoicable.table_names.invoices'));
+    }
 
     /**
      * The "booting" method of the model.

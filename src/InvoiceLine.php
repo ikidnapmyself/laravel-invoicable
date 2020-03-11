@@ -10,6 +10,17 @@ class InvoiceLine extends Model
     protected $guarded = [];
 
     /**
+     * InvoiceLine constructor.
+     * @param array $attributes
+     */
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+
+        $this->setTable(config('invoicable.table_names.invoice_lines'));
+    }
+
+    /**
      * Invoice model.
      *
      * @return mixed
