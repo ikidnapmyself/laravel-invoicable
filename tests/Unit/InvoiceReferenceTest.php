@@ -23,7 +23,7 @@ class InvoiceReferenceTest extends AbstractTestCase
     /** @test */
     public function mustBe17CharactersLong()
     {
-        $this->assertEquals(17, strlen($this->reference));
+        $this->assertEquals(15, strlen($this->reference));
     }
 
     /** @test */
