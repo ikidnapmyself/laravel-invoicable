@@ -14,6 +14,7 @@ class InvoiceReferenceGenerator
 
     protected static function generateRandomCode()
     {
-        return str_random(6);
+        $pool = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+        return substr(str_shuffle(str_repeat($pool, 6)), 0, 6);
     }
 }
